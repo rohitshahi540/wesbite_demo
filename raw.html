@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Responsive Contact Section</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --section-bg: #111111;
+            --card-bg: #16213e;
+            --accent-cyan: #00ffff;
+            --accent-magenta: #ff00ff;
+            --text-white: #ffffff;
+            --text-gray: #cccccc;
+            --border-glow-1: rgba(0, 255, 255, 0.2);
+            --border-glow-2: rgba(0, 255, 255, 0.3);
+            --gradient-main: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .contact-section {
+            min-height: 100vh;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.08) 0%, transparent 50%),
+                var(--section-bg);
+            position: relative;
+            padding: clamp(40px, 8vw, 100px) clamp(20px, 5vw, 50px);
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            animation: particleFloat 8s ease-in-out infinite;
+        }
+
+        .floating-particle:nth-child(even) {
+            background: var(--accent-magenta);
+            animation-duration: 12s;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0.3; }
+            25% { transform: translateY(-20px) translateX(10px) rotate(90deg); opacity: 1; }
+            50% { transform: translateY(-40px) translateX(-10px) rotate(180deg); opacity: 0.7; }
+            75% { transform: translateY(-20px) translateX(15px) rotate(270deg); opacity: 1; }
+        }
+
+        .wave-bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, 
+                rgba(0, 255, 255, 0.1) 0%, 
+                rgba(255, 0, 255, 0.1) 50%, 
+                transparent 100%);
+            clip-path: polygon(0 60%, 100% 40%, 100% 100%, 0% 100%);
+            animation: waveMove 6s ease-in-out infinite;
+        }
+
+        @keyframes waveMove {
+            0%, 100% { clip-path: polygon(0 60%, 100% 40%, 100% 100%, 0% 100%); }
+            50% { clip-path: polygon(0 40%, 100% 60%, 100% 100%, 0% 100%); }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: clamp(40px, 8vw, 80px);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            position: relative;
+            letter-spacing: -0.02em;
+        }
+
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: clamp(80px, 20vw, 120px);
+            height: 4px;
+            background: var(--gradient-main);
+            border-radius: 2px;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { box-shadow: 0 0 20px var(--accent-cyan); }
+            to { box-shadow: 0 0 40px var(--accent-magenta); }
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Grid Layout */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+            gap: clamp(30px, 6vw, 60px);
+            align-items: start;
+        }
+
+        /* Card Styles */
+        .contact-card {
+            background: rgba(22, 33, 62, 0.4);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--border-glow-1);
+            border-radius: 25px;
+            padding: clamp(30px, 6vw, 50px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: slideInUp 1s ease-out;
+        }
+
+        .contact-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: var(--gradient-main);
+            border-radius: 27px;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-card::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: var(--section-bg);
+            border-radius: 23px;
+            z-index: -1;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 25px 50px rgba(0, 255, 255, 0.2);
+        }
+
+        .contact-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Shimmer Effect */
+        .contact-card::after {
+            background: 
+                linear-gradient(135deg, var(--section-bg) 0%, rgba(0, 255, 255, 0.05) 50%, var(--section-bg) 100%);
+            background-size: 200% 200%;
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+        }
+
+        /* Info Section */
+        .info-section h3 {
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            color: var(--accent-cyan);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .info-section h3::before {
+            content: '💫';
+            font-size: 1.2em;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .info-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .info-item:hover::before {
+            left: 100%;
+        }
+
+        .info-item:hover {
+            transform: translateX(10px);
+            background: rgba(0, 255, 255, 0.05);
+            border-color: var(--border-glow-1);
+        }
+
+        .info-icon {
+            width: clamp(50px, 10vw, 60px);
+            height: clamp(50px, 10vw, 60px);
+            background: var(--gradient-main);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            animation: iconPulse 3s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .info-text h4 {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            color: var(--text-white);
+            margin-bottom: 5px;
+        }
+
+        .info-text p {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            color: var(--text-gray);
+            word-break: break-word;
+        }
+
+        /* Form Section */
+        .form-section h3 {
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            color: var(--accent-magenta);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .form-section h3::before {
+            content: '⚡';
+            font-size: 1.2em;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: clamp(15px, 4vw, 20px);
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid var(--border-glow-1);
+            border-radius: 15px;
+            color: var(--text-white);
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
+            font-family: inherit;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .form-textarea {
+            min-height: clamp(100px, 20vw, 140px);
+            resize: vertical;
+        }
+
+        .form-label {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 0 10px;
+            border-radius: 8px;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        .form-textarea + .form-label {
+            top: 25px;
+            transform: translateY(0);
+        }
+
+        .form-input:focus + .form-label,
+        .form-input:not(:placeholder-shown) + .form-label,
+        .form-textarea:focus + .form-label,
+        .form-textarea:not(:placeholder-shown) + .form-label {
+            top: -12px;
+            transform: translateY(0);
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            color: var(--accent-cyan);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: clamp(18px, 4vw, 22px);
+            background: var(--gradient-main);
+            border: none;
+            border-radius: 15px;
+            color: var(--text-white);
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: inherit;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.4);
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            padding: 20px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid #00ff88;
+            border-radius: 15px;
+            color: #00ff88;
+            text-align: center;
+            font-weight: 600;
+            animation: successPulse 0.5s ease-out;
+        }
+
+        @keyframes successPulse {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Loading State */
+        .btn-loading {
+            background: linear-gradient(135deg, #666, #888) !important;
+            cursor: not-allowed !important;
+            position: relative;
+        }
+
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid var(--text-white);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .contact-section {
+                padding: 40px 20px;
+            }
+
+            .contact-grid {
+                gap: 40px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .info-item {
+                padding: 15px;
+                gap: 15px;
+            }
+
+            .info-text h4 {
+                font-size: 1rem;
+            }
+
+            .info-text p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-card {
+                padding: 25px 20px;
+            }
+
+            .info-list {
+                gap: 15px;
+            }
+
+            .info-item {
+                padding: 12px;
+                gap: 12px;
+            }
+
+            .form-input, .form-textarea {
+                padding: 15px;
+            }
+        }
+
+        /* High DPI Displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .contact-card {
+                backdrop-filter: blur(25px);
+            }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #000000;
+                --section-bg: #0a0a0a;
+            }
+        }
+
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .bg-animation, .wave-bg { display: none; }
+            .contact-card { border: 1px solid #ccc; background: white; color: black; }
+        }
+    </style>
+</head>
+<body>
+    <section class="contact-section">
+        <!-- Animated Background -->
+        <div class="bg-animation" id="bgAnimation">
+            <!-- Particles will be generated by JavaScript -->
+        </div>
+        <div class="wave-bg"></div>
+
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <h1 class="main-title">Get In Touch</h1>
+                <p class="subtitle">
+                    Ready to bring your vision to life? Let's create something extraordinary together. 
+                    Drop us a message and let's start the conversation.
+                </p>
+            </div>
+
+            <!-- Contact Grid -->
+            <div class="contact-grid">
+                <!-- Contact Information -->
+                <div class="contact-card">
+                    <div class="info-section">
+                        <h3>Let's Connect</h3>
+                        <ul class="info-list">
+                            <li class="info-item">
+                                <div class="info-icon">📧</div>
+                                <div class="info-text">
+                                    <h4>Email Address</h4>
+                                    <p>hello@company.com</p>
+                                </div>
+                            </li>
+                            <li class="info-item">
+                                <div class="info-icon">📱</div>
+                                <div class="info-text">
+                                    <h4>Phone Number</h4>
+                                    <p>+1 (555) 123-4567</p>
+                                </div>
+                            </li>
+                            <li class="info-item">
+                                <div class="info-icon">📍</div>
+                                <div class="info-text">
+                                    <h4>Our Location</h4>
+                                    <p>123 Innovation Street<br>Tech City, TC 12345</p>
+                                </div>
+                            </li>
+                            <li class="info-item">
+                                <div class="info-icon">🕒</div>
+                                <div class="info-text">
+                                    <h4>Business Hours</h4>
+                                    <p>Mon - Fri: 9:00 AM - 6:00 PM<br>Weekend: By Appointment</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-card">
+                    <div class="form-section">
+                        <h3>Send Message</h3>
+                        <div class="success-message" id="successMessage">
+                            🎉 Message sent successfully! We'll get back to you soon.
+                        </div>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" class="form-input" id="firstName" placeholder=" " required>
+                                    <label class="form-label" for="firstName">First Name</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-input" id="lastName" placeholder=" " required>
+                                    <label class="form-label" for="lastName">Last Name</label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="email" class="form-input" id="email" placeholder=" " required>
+                                    <label class="form-label" for="email">Email Address</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" class="form-input" id="phone" placeholder=" ">
+                                    <label class="form-label" for="phone">Phone Number</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-input" id="subject" placeholder=" " required>
+                                <label class="form-label" for="subject">Subject</label>
+                            </div>
+
+                            <div class="form-group">
+                                <textarea class="form-textarea" id="message" placeholder=" " required></textarea>
+                                <label class="form-label" for="message">Your Message</label>
+                            </div>
+
+                            <button type="submit" class="submit-btn" id="submitBtn">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('bgAnimation');
+            const particleCount = window.innerWidth < 768 ? 20 : 40;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                
+                // Random position
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                
+                // Random animation delay and duration
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 6 + 6) + 's';
+                
+                // Random size for mobile
+                if (window.innerWidth < 768) {
+                    const size = Math.random() * 2 + 2;
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+                }
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Form handling with enhanced UX
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const originalText = submitBtn.textContent;
+            
+            // Validation
+            const requiredFields = this.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = '#ff4757';
+                    isValid = false;
+                    
+                    // Reset border color after animation
+                    setTimeout(() => {
+                        field.style.borderColor = 'var(--border-glow-1)';
+                    }, 3000);
+                }
+            });
+            
+            if (!isValid) {
+                submitBtn.textContent = 'Please fill required fields';
+                submitBtn.style.background = 'linear-gradient(135deg, #ff4757, #ff3742)';
+                
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = 'var(--gradient-main)';
+                }, 3000);
+                return;
+            }
+            
+            // Loading state
+            submitBtn.textContent = '';
+            submitBtn.classList.add('btn-loading');
+            submitBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Success state
+                submitBtn.classList.remove('btn-loading');
+                submitBtn.textContent = '✓ Message Sent!';
+                submitBtn.style.background = 'linear-gradient(135deg, #00ff88, #00cc6a)';
+                
+                // Show success message
+                successMessage.style.display = 'block';
+                
+                // Reset form
+                this.reset();
+                
+                // Scroll to success message on mobile
+                if (window.innerWidth < 768) {
+                    successMessage.scrollIntoView({ behavior: 'smooth' });
+                }
+                
+                // Reset button after delay
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = 'var(--gradient-main)';
+                    submitBtn.disabled = false;
+                    successMessage.style.display = 'none';
+                }, 5000);
+            }, 2000);
+        });
+
+        // Enhanced input interactions
+        document.querySelectorAll('.form-input, .form-textarea').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+            
+            // Real-time validation feedback
+            input.addEventListener('input', function() {
+                if (this.hasAttribute('required') && this.value.trim()) {
+                    this.style.borderColor = 'var(--accent-cyan)';
+                } else if (this.hasAttribute('required')) {
+                    this.style.borderColor = 'var(--border-glow-1)';
+                }
+            });
+        });
+
+        // Info item interactions
+        document.querySelectorAll('.info-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.info-icon');
+                icon.style.transform = 'scale(1.2) rotate(360deg)';
+                icon.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.info-icon');
+                icon.style.transform = 'scale(1) rotate(0deg)';
+            });
+            
+            // Touch support for mobile
+            item.addEventListener('touchstart', function() {
+                this.style.transform = 'translateX(5px)';
+                this.style.background = 'rgba(0, 255, 255, 0.05)';
+            });
+            
+            item.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.style.transform = 'translateX(0)';
+                    this.style.background = 'rgba(0, 0, 0, 0.3)';
+                }, 150);
+            });
+        });
+
+        // Ripple effect for button
+        document.querySelector('.submit-btn').addEventListener('click', function(e) {
+            if (this.disabled) return;
+            
+            const button = e.currentTarget;
+            const rect = button.getBoundingClientRect();
+            const ripple = document.createElement('span');
+            
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.cssText = `
+                width: ${size}px;
+                height: ${size}px;
+                left: ${x}px;
+                top: ${y}px;
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+            `;
+            
+            button.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+
+        // Add ripple animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1

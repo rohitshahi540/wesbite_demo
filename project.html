@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        xintegrity="sha512-Fo3rlrZj/k7s3f8t/a/gDOWUfFfLqWf1i6eR3D5J/pG4J6U4o7zIqN+y3P7+nN+bT5D5T0wSj2/z0zJ9G7Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Three.js CDN for 3D graphics -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        :root {
+            --bg-color: #0a0a0a;
+            --section-bg: #111111;
+            --card-bg: #16213e;
+            --accent-cyan: #00ffff;
+            --accent-magenta: #ff00ff;
+            --text-white: #ffffff;
+            --text-gray: #cccccc;
+            --border-glow-1: rgba(0, 255, 255, 0.2);
+            --border-glow-2: rgba(0, 255, 255, 0.3);
+            --gradient-main: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+            --card-gradient-hover: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .projects-section {
+            background: var(--section-bg);
+            padding: 100px 20px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .projects-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 0, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: slideUp 1s ease-out;
+        }
+
+        .main-heading {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 24px;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+
+        .main-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-main);
+            border-radius: 2px;
+        }
+
+        .section-description {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+        .project-card:nth-child(5) { animation-delay: 0.5s; }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--card-gradient-hover);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--border-glow-1);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 0 1px var(--border-glow-1),
+                0 0 30px var(--border-glow-1);
+        }
+
+        .project-card:hover::before {
+            opacity: 0.08;
+        }
+
+        .project-image-container {
+            position: relative;
+            height: 240px;
+            overflow: hidden;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-image:hover {
+            transform: scale(1.1);
+        }
+
+        .project-image-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .project-content {
+            padding: 28px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--accent-cyan);
+            transition: color 0.3s ease;
+        }
+
+        .project-card:hover .project-title {
+            color: var(--accent-magenta);
+        }
+
+        .project-description {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* Enhanced Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            animation: modalZoomIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                0 0 50px var(--border-glow-2);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -60px;
+            right: 0;
+            background: var(--gradient-main);
+            border: none;
+            color: var(--text-white);
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-btn:hover {
+            transform: scale(1.15) rotate(90deg);
+            box-shadow: 
+                0 12px 32px rgba(0, 0, 0, 0.4),
+                0 0 30px var(--accent-cyan);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 20px;
+            opacity: 0.6;
+            animation: scrollPulse 2s infinite;
+        }
+
+        .scroll-indicator::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: var(--accent-cyan);
+            border-radius: 2px;
+            animation: scrollDot 2s infinite;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes modalZoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes scrollDot {
+            0% { transform: translateX(-50%) translateY(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(-50%) translateY(20px); opacity: 0; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .projects-section {
+                padding: 80px 16px;
+            }
+
+            .section-header {
+                margin-bottom: 60px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                margin-top: 50px;
+            }
+
+            .main-heading {
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+            }
+
+            .section-description {
+                font-size: 1.1rem;
+            }
+
+            .project-content {
+                padding: 24px;
+            }
+
+            .project-image-container {
+                height: 200px;
+            }
+
+            .modal-content {
+                max-width: 95vw;
+                max-height: 80vh;
+            }
+
+            .close-btn {
+                top: -50px;
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .projects-section {
+                padding: 60px 12px;
+            }
+
+            .projects-grid {
+                gap: 20px;
+            }
+
+            .project-content {
+                padding: 20px;
+            }
+
+            .project-title {
+                font-size: 1.3rem;
+            }
+
+            .project-description {
+                font-size: 0.9rem;
+            }
+
+            .close-btn {
+                top: -45px;
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0;
+            animation: loadingFade 0.5s ease-out 0.2s forwards;
+        }
+
+        @keyframes loadingFade {
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+  <body class="bg-[#0a0a0a] min-h-screen text-white">
+    <!-- Existing Navigation Bar -->
+    <header class="bg-navbar-dark backdrop-blur-md shadow-lg fixed top-0 left-0 w-full z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center rounded-lg">
+            <!-- Logo and Site Name -->
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-chart-pie text-[#00ffff] text-2xl"></i>
+                <a href="#" class="text-2xl font-bold text-white">Rohit Shahi</a>
+            </div>
+
+            <!-- Main Navigation Links (Desktop) -->
+            <div class="hidden md:flex items-center space-x-6">
+                <ul class="flex space-x-6 font-medium">
+                     <li><a href="index.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Home</a></li>
+                    <li><a href="about.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">About</a></li>
+                    <li><a href="service.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Services</a></li>
+                    <li><a href="row.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Projects</a></li>
+                    <li><a href="video.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Videos</a></li>
+                    <!-- <li><a href="#" class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Blog</a></li> -->
+                    <li><a href="contact.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Contact</a></li>
+                </ul>
+
+                <!-- Social Media Icons (Desktop) -->
+                <div class="flex items-center space-x-4 ml-6 border-l pl-6 border-[#111111]">
+                    <a href="https://www.instagram.com/rohit_shahi27?igsh=NWFicnN0YzBycG9r"
+                        class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                            class="fab fa-instagram text-xl"></i></a>
+                    <a href="https://www.youtube.com/@rohitshahi_27"
+                        class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                            class="fab fa-youtube text-xl"></i></a>
+                    <a href="https://github.com/rohitshahi540"
+                        class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                            class="fab fa-github text-xl"></i></a>
+                    <a href="#" class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                            class="fab fa-twitter text-xl"></i></a>
+                </div>
+            </div>
+
+            <!-- Hamburger Menu Button (Mobile) -->
+            <div class="md:hidden">
+                <button id="hamburger-button" class="text-white focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu (Hidden by default) -->
+    <div id="mobile-menu"
+        class="fixed top-0 right-0 w-64 h-full bg-[#111111] shadow-xl transform translate-x-full transition-transform duration-500 ease-in-out z-50 rounded-l-lg">
+        <div class="relative h-full flex flex-col p-6">
+            <!-- Close Button -->
+            <button id="close-button" class="absolute top-4 right-4 text-white focus:outline-none">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+
+            <!-- Mobile Links -->
+            <ul class="flex flex-col space-y-4 font-medium mt-16">
+                <li><a href="index.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Home</a></li>
+                    <li><a href="about.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">About</a></li>
+                    <li><a href="service.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Services</a></li>
+                    <li><a href="row.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Projects</a></li>
+                    <li><a href="video.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Videos</a></li>
+                    <!-- <li><a href="#" class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Blog</a></li> -->
+                    <li><a href="contact.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Contact</a></li>
+            </ul>
+
+            <!-- Mobile Social Media Icons -->
+            <div class="flex items-center justify-center space-x-6 mt-auto">
+                <a href="https://www.instagram.com/rohit_shahi27?igsh=NWFicnN0YzBycG9r"
+                    class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                        class="fab fa-instagram text-xl"></i></a>
+                <a href="https://www.youtube.com/@rohitshahi_27"
+                    class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                        class="fab fa-youtube text-xl"></i></a>
+                <a href="https://github.com/rohitshahi540"
+                    class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                        class="fab fa-github text-xl"></i></a>
+                <a href="#" class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                        class="fab fa-twitter text-xl"></i></a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- -----------------------------  -->
+    <section class="projects-section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="main-heading">Our Featured Projects</h1>
+                <p class="section-description">
+                    Explore our collection of innovative digital solutions and creative projects that showcase our expertise in modern web development, user experience design, and cutting-edge technology implementations.
+                </p>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image-container">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop&auto=format" 
+                             alt="Data Analytics Platform" class="project-image" onclick="openModal(this)">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Data Analytics Platform</h3>
+                        <p class="project-description">
+                            A comprehensive analytics dashboard featuring real-time data visualization, advanced reporting capabilities, and machine learning insights. Built with React, D3.js, and a robust backend API for seamless data processing.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image-container">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop&auto=format" 
+                             alt="E-Commerce Solution" class="project-image" onclick="openModal(this)">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">E-Commerce Solution</h3>
+                        <p class="project-description">
+                            A full-stack e-commerce platform with secure payment integration, inventory management, and personalized user experiences. Features include real-time chat support, advanced search, and mobile-optimized checkout flow.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image-container">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop&auto=format" 
+                             alt="FinTech Mobile App" class="project-image" onclick="openModal(this)">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">FinTech Mobile App</h3>
+                        <p class="project-description">
+                            A secure financial technology application with biometric authentication, real-time transaction monitoring, and AI-powered financial insights. Designed with cutting-edge security protocols and intuitive user interface.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image-container">
+                        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=400&fit=crop&auto=format" 
+                             alt="Creative Portfolio Hub" class="project-image" onclick="openModal(this)">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Creative Portfolio Hub</h3>
+                        <p class="project-description">
+                            An interactive portfolio showcase platform featuring dynamic galleries, smooth animations, and immersive storytelling. Built with Three.js for 3D elements and optimized for exceptional performance across all devices.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image-container">
+                        <img src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?w=600&h=400&fit=crop&auto=format" 
+                             alt="Learning Management System" class="project-image" onclick="openModal(this)">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Learning Management System</h3>
+                        <p class="project-description">
+                            A comprehensive educational platform with interactive course delivery, progress tracking, collaborative tools, and AI-powered personalized learning paths. Supports multimedia content and real-time collaboration features.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <img src="" alt="" class="modal-image" id="modalImage">
+        </div>
+    </div>
+
+    <script>
+
+      // Existing script for the navigation bar
+        const hamburgerButton = document.getElementById('hamburger-button');
+        const closeButton = document.getElementById('close-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function openMenu() {
+            mobileMenu.classList.remove('translate-x-full');
+            mobileMenu.classList.add('pop-animation');
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.add('translate-x-full');
+            mobileMenu.classList.remove('pop-animation');
+        }
+
+        hamburgerButton.addEventListener('click', openMenu);
+        closeButton.addEventListener('click', closeMenu);
+        // Enhanced Modal functionality
+        let isModalOpen = false;
+
+        function openModal(img) {
+            if (isModalOpen) return;
+            
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            
+            modal.classList.add('active');
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+            isModalOpen = true;
+            
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+            
+            // Add event listeners
+            modal.addEventListener('click', handleModalClick);
+            document.addEventListener('keydown', handleKeyDown);
+            
+            // Add touch support for mobile
+            modal.addEventListener('touchstart', handleTouchStart, { passive: true });
+        }
+
+        function closeModal() {
+            if (!isModalOpen) return;
+            
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            isModalOpen = false;
+            
+            // Remove event listeners
+            modal.removeEventListener('click', handleModalClick);
+            document.removeEventListener('keydown', handleKeyDown);
+            modal.removeEventListener('touchstart', handleTouchStart);
+        }
+
+        function handleModalClick(e) {
+            const modal = document.getElementById('imageModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        }
+
+        function handleKeyDown(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        }
+
+        function handleTouchStart(e) {
+            const modal = document.getElementById('imageModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Intersection Observer for enhanced animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all project cards
+            document.querySelectorAll('.project-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            // Add loading class to body
+            document.body.classList.add('loading');
+        });
+
+        // Smooth image loading
+        document.querySelectorAll('.project-image').forEach(img => {
+            img.addEventListener('load', function() {
+                this.style.opacity = '1';
+            });
+        });
+
+        // Performance optimization - Preload modal functionality
+        let modalPreloaded = false;
+        document.addEventListener('mouseover', function(e) {
+            if (e.target.classList.contains('project-image') && !modalPreloaded) {
+                modalPreloaded = true;
+                // Preload modal styles if needed
+            }
+        }, { once: true });
+
+        // Add smooth scrolling behavior
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.scroll-indicator')) {
+                window.scrollBy({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    </script>
+</body>
+</html>

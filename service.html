@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        xintegrity="sha512-Fo3rlrZj/k7s3f8t/a/gDOWUfFfLqWf1i6eR3D5J/pG4J6U4o7zIqN+y3P7+nN+bT5D5T0wSj2/z0zJ9G7Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Three.js CDN for 3D graphics -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+
+<body class="bg-[#0a0a0a] min-h-screen text-white">
+    <!-- Existing Navigation Bar -->
+    <header class="bg-navbar-dark backdrop-blur-md shadow-lg fixed top-0 left-0 w-full z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center rounded-lg">
+            <!-- Logo and Site Name -->
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-chart-pie text-[#00ffff] text-2xl"></i>
+                <a href="#" class="text-2xl font-bold text-white">Rohit Shahi</a>
+            </div>
+
+            <!-- Main Navigation Links (Desktop) -->
+            <div class="hidden md:flex items-center space-x-6">
+                <ul class="flex space-x-6 font-medium">
+                    <li><a href="index.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Home</a></li>
+                    <li><a href="about.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">About</a></li>
+                    <li><a href="service.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Services</a></li>
+                    <li><a href="project.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Projects</a></li>
+                    <li><a href="video.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Videos</a></li>
+                    <!-- <li><a href="#" class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Blog</a></li> -->
+                    <li><a href="contact.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Contact</a></li>
+                </ul>
+
+                <!-- Social Media Icons (Desktop) -->
+                <div class="flex items-center space-x-4 ml-6 border-l pl-6 border-[#111111]">
+                    <a href="https://www.instagram.com/rohit_shahi27?igsh=NWFicnN0YzBycG9r"
+                        class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                            class="fab fa-instagram text-xl"></i></a>
+                    <a href="https://www.youtube.com/@rohitshahi_27"
+                        class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                            class="fab fa-youtube text-xl"></i></a>
+                    <a href="https://github.com/rohitshahi540"
+                        class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                            class="fab fa-github text-xl"></i></a>
+                    <a href="#" class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                            class="fab fa-twitter text-xl"></i></a>
+                </div>
+            </div>
+
+            <!-- Hamburger Menu Button (Mobile) -->
+            <div class="md:hidden">
+                <button id="hamburger-button" class="text-white focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu (Hidden by default) -->
+    <div id="mobile-menu"
+        class="fixed top-0 right-0 w-64 h-full bg-[#111111] shadow-xl transform translate-x-full transition-transform duration-500 ease-in-out z-50 rounded-l-lg">
+        <div class="relative h-full flex flex-col p-6">
+            <!-- Close Button -->
+            <button id="close-button" class="absolute top-4 right-4 text-white focus:outline-none">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+
+            <!-- Mobile Links -->
+            <ul class="flex flex-col space-y-4 font-medium mt-16">
+                 <li><a href="index.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Home</a></li>
+                    <li><a href="about.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">About</a></li>
+                    <li><a href="service.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Services</a></li>
+                    <li><a href="project.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Projects</a></li>
+                    <li><a href="video.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Videos</a></li>
+                    <!-- <li><a href="#" class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Blog</a></li> -->
+                    <li><a href="contact.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Contact</a></li>
+            </ul>
+
+            <!-- Mobile Social Media Icons -->
+            <div class="flex items-center justify-center space-x-6 mt-auto">
+                <a href="https://www.instagram.com/rohit_shahi27?igsh=NWFicnN0YzBycG9r"
+                    class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                        class="fab fa-instagram text-xl"></i></a>
+                <a href="https://www.youtube.com/@rohitshahi_27"
+                    class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                        class="fab fa-youtube text-xl"></i></a>
+                <a href="https://github.com/rohitshahi540"
+                    class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                        class="fab fa-github text-xl"></i></a>
+                <a href="#" class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                        class="fab fa-twitter text-xl"></i></a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Services Section -->
+    <section id="services" class="relative overflow-hidden">
+        <div class="particle-bg"></div>
+        <div class="content-section">
+            <h2 class="section-title fade-in">What I Offer</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1 -->
+                <div class="content-card fade-in">
+                    <div class="content-text-container">
+                        <i class="fa-solid fa-file-excel service-icon mx-auto"
+                            style="font-size:48px; color:#00ff88;"></i>
+
+                        <h3 class="content-title">Excel & Advanced Excel</h3>
+                        <p class="content-description">
+                            In Excel and Advanced Excel, I focus on cleaning and transforming data with formulas and
+                            Power Query, creating pivot tables and charts for meaningful insights, using advanced
+                            functions such as VLOOKUP, INDEX-MATCH, and SUMIFS, and building interactive dashboards with
+                            slicers and conditional formatting. I also automate workflows with Macros and VBA, etc.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="content-card fade-in">
+                    <div class="content-text-container">
+                        <i class="fa-solid fa-database service-icon mx-auto" style="font-size:48px; color:#f29111;"></i>
+
+
+                        <h3 class="content-title">MySQL</h3>
+                        <p class="content-description">
+                            With MySQL, I work on designing and normalizing databases, writing complex SQL queries using
+                            JOIN, GROUP BY, HAVING, and subqueries, and extracting and aggregating data to build
+                            reports. I also optimize queries for performance and apply SQL-based solutions to address
+                            business requirements effectively, ensuring accuracy, efficiency, and scalability in
+                            database management, etc.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="content-card fade-in">
+                    <div class="content-text-container">
+                        <i class="fa-brands fa-python service-icon mx-auto" style="font-size:48px; color:#3776AB;"></i>
+
+                        <h3 class="content-title">Python (for Data Analytics)</h3>
+                        <p class="content-description">
+                            Using Python, I specialize in manipulating and cleaning data with Pandas and NumPy,
+                            performing exploratory data analysis with Matplotlib, Seaborn, and Plotly, and handling
+                            missing values and outliers effectively. I also apply machine learning models for
+                            forecasting and classification, and build automation scripts to simplify repetitive data
+                            tasks and improve productivity, etc.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="content-card fade-in">
+                    <div class="content-text-container">
+                        <i class="fa-solid fa-chart-column service-icon mx-auto"
+                            style="font-size:48px; color:#F2C811;"></i>
+
+                        <h3 class="content-title">Power BI</h3>
+                        <p class="content-description">
+                            In Power BI, I design and develop interactive dashboards and reports, connect and integrate
+                            multiple data sources such as Excel, SQL, and APIs, and create efficient data models with
+                            relationships to support analysis. I use DAX formulas for KPIs and metrics, and publish
+                            dashboards for collaboration and business intelligence solutions, driving decision-making,
+                            etc.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Service Card 5 -->
+                <div class="content-card fade-in">
+                    <div class="content-text-container">
+                        <i class="fa-solid fa-robot service-icon mx-auto" style="font-size:48px; color:#00ffff;"></i>
+
+                        <h3 class="content-title">ChatGPT & GeminiAI</h3>
+                        <p class="content-description">
+                            With ChatGPT and GeminiAI, I automate data reporting, generate AI-driven insights, and
+                            analyze text through Natural Language Processing. I enable conversational queries on
+                            datasets, build AI-powered assistants that improve dashboard interactivity, and help in
+                            business decision-making with generative AI solutions. These tools add intelligence,
+                            automation, and innovation to modern data workflows, etc.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Service Card 6 -->
+                <!-- <div class="content-card fade-in">
+                    <div class="content-text-container">
+                       <i class="fa-solid fa-star service-icon mx-auto" style="font-size:48px; color:#4285F4;"></i>
+
+                        <h3 class="content-title">Full-Stack Solutions</h3>
+                        <p class="content-description">
+                            Delivering end-to-end solutions, from front-end user interfaces to back-end logic and
+                            database management.
+                        </p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+<!-- -------------------------------  -->
+ 
+
+
+    
+
+
+    <!-- New 3D Charts Section -->
+    <section class="bg-[#111111] py-24 px-4">
+        <div class="container mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-2">Turning Numbers into Visual Stories</h2>
+                <p class="text-[#cccccc]">Data Visualizations in 3D</p>
+            </div>
+
+            <!-- Chart Cards -->
+            <div class="chart-grid">
+                <!-- 3D Column Chart Card -->
+                <div class="chart-card">
+                    <h3 class="text-2xl font-semibold mb-4 text-[#00ffff]">3-D Column Chart</h3>
+                    <div id="column-chart-container" class="chart-canvas relative"></div>
+                    <div class="chart-labels-container">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #ff00ff;"></div>Oranges
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #ff00ff;"></div>Apples
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #00ffff;"></div>Lemons
+                        </div>
+                    </div>
+                </div>
+                <!-- 3D Bar Chart Card -->
+                <div class="chart-card">
+                    <h3 class="text-2xl font-semibold mb-4 text-[#00ffff]">3-D Bar Chart</h3>
+                    <div id="bar-chart-container" class="chart-canvas relative"></div>
+                    <div class="chart-labels-container">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #ff00ff;"></div>Oranges
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #ff00ff;"></div>Apples
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #00ffff;"></div>Lemons
+                        </div>
+                    </div>
+                </div>
+                <!-- 3D Pie Chart Card -->
+                <div class="chart-card">
+                    <h3 class="text-2xl font-semibold mb-4 text-[#00ffff]">3-D Pie Chart</h3>
+                    <div id="pie-chart-container" class="chart-canvas relative"></div>
+                    <div class="chart-labels-container">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #ff00ff;"></div>Oranges
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #ff00ff;"></div>Apples
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #00ffff;"></div>Lemons
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- footer  -->
+    <footer class="cyberpunk-footer">
+        <div class="footer-content">
+            <h2 class="website-name">Rohit Shahi</h2>
+
+            <p class="intro-paragraph">
+                “Data tells powerful stories. Let’s connect and discover the insights hidden in your data.”
+            </p>
+
+            <div class="social-grid">
+                <div class="social-card facebook">
+                    <a href="https://www.facebook.com" target="_blank">
+                        <i class="fab fa-facebook-f social-icon"></i>
+                        <div class="social-name">Facebook</div>
+                        <div class="platform-specific">Social Network</div>
+                    </a>
+                </div>
+
+                <div class="social-card twitter">
+                    <a href="https://x.com" target="_blank">
+                        <i class="fab fa-twitter social-icon"></i>
+                        <div class="social-name">Twitter</div>
+                        <div class="platform-specific">Microblogging</div>
+                    </a>
+                </div>
+
+                <div class="social-card instagram">
+                    <a href="https://www.instagram.com" target="_blank">
+                        <i class="fab fa-instagram social-icon"></i>
+                        <div class="social-name">Instagram</div>
+                        <div class="platform-specific">Visual Content</div>
+                    </a>
+                </div>
+
+                <div class="social-card linkedin">
+                    <a href="https://www.linkedin.com" target="_blank">
+                        <i class="fab fa-linkedin-in social-icon"></i>
+                        <div class="social-name">LinkedIn</div>
+                        <div class="platform-specific">Professional</div>
+                    </a>
+                </div>
+
+                <div class="social-card indeed">
+                    <a href="https://www.indeed.com" target="_blank">
+                        <i class="fas fa-briefcase social-icon"></i>
+                        <div class="social-name">Indeed</div>
+                        <div class="platform-specific">Job Search</div>
+                    </a>
+                </div>
+
+                <div class="social-card naukri">
+                    <a href="https://www.naukri.com" target="_blank">
+                        <i class="fas fa-building social-icon"></i>
+                        <div class="social-name">Naukri</div>
+                        <div class="platform-specific">Career Portal</div>
+                    </a>
+                </div>
+            </div>
+
+            <p class="closing-paragraph">
+                2025 Rohit Shahi | Data Analytics.
+            </p>
+        </div>
+    </footer>
+    </p>
+    </div>
+    </footer>
+    <!-- js link  -->
+    <script src="script.js"></script>
+    <!-- ------------  -->
+</body>
+
+</html>

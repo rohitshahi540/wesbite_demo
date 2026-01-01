@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        xintegrity="sha512-Fo3rlrZj/k7s3f8t/a/gDOWUfFfLqWf1i6eR3D5J/pG4J6U4o7zIqN+y3P7+nN+bT5D5T0wSj2/z0zJ9G7Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Three.js CDN for 3D graphics -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("rohitshahi540@gmailcom"); // You need to replace this with your actual EmailJS public key
+        })();
+    </script>
+
+</head>
+
+<body class="bg-[#0a0a0a] min-h-screen text-white">
+    <!-- Existing Navigation Bar -->
+    <header class="bg-navbar-dark backdrop-blur-md shadow-lg fixed top-0 left-0 w-full z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center rounded-lg">
+            <!-- Logo and Site Name -->
+            <div class="flex items-center space-x-2">
+                  <i class="fas fa-chart-pie text-[#00ffff] text-2xl"></i>
+                <a href="#" class="text-2xl font-bold text-white">Rohit Shahi</a>
+            </div>
+
+            <!-- Main Navigation Links (Desktop) -->
+            <div class="hidden md:flex items-center space-x-6">
+                <ul class="flex space-x-6 font-medium">
+                     <li><a href="index.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Home</a></li>
+                    <li><a href="about.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">About</a></li>
+                    <li><a href="service.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Services</a></li>
+                    <li><a href="project.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Projects</a></li>
+                    <li><a href="video.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Videos</a></li>
+                    <!-- <li><a href="#" class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Blog</a></li> -->
+                    <li><a href="contact.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Contact</a></li>
+                </ul>
+
+                <!-- Social Media Icons (Desktop) -->
+                <div class="flex items-center space-x-4 ml-6 border-l pl-6 border-[#111111]">
+                    <a href="#" class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                            class="fab fa-instagram text-xl"></i></a>
+                    <a href="#" class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                            class="fab fa-youtube text-xl"></i></a>
+                    <a href="#" class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                            class="fab fa-github text-xl"></i></a>
+                    <a href="#" class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                            class="fab fa-twitter text-xl"></i></a>
+                </div>
+            </div>
+
+            <!-- Hamburger Menu Button (Mobile) -->
+            <div class="md:hidden">
+                <button id="hamburger-button" class="text-white focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu (Hidden by default) -->
+    <div id="mobile-menu"
+        class="fixed top-0 right-0 w-64 h-full bg-[#111111] shadow-xl transform translate-x-full transition-transform duration-500 ease-in-out z-50 rounded-l-lg">
+        <div class="relative h-full flex flex-col p-6">
+            <!-- Close Button -->
+            <button id="close-button" class="absolute top-4 right-4 text-white focus:outline-none">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+
+            <!-- Mobile Links -->
+            <ul class="flex flex-col space-y-4 font-medium mt-16">
+                <li><a href="index.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Home</a></li>
+                    <li><a href="about.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">About</a></li>
+                    <li><a href="service.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Services</a></li>
+                    <li><a href="project.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Projects</a></li>
+                    <li><a href="video.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Videos</a></li>
+                    <!-- <li><a href="#" class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Blog</a></li> -->
+                    <li><a href="contact.html"
+                            class="text-[#cccccc] hover:text-[#00ffff] transition duration-300">Contact</a></li>
+            </ul>
+
+            <!-- Mobile Social Media Icons -->
+            <div class="flex items-center justify-center space-x-6 mt-auto">
+                <a href="#" class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                        class="fab fa-instagram text-2xl"></i></a>
+                <a href="#" class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                        class="fab fa-youtube text-2xl"></i></a>
+                <a href="#" class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                        class="fab fa-github text-2xl"></i></a>
+                <a href="#" class="text-[#cccccc] hover:text-[#ff00ff] transition duration-300"><i
+                        class="fab fa-twitter text-2xl"></i></a>
+            </div>
+        </div>
+    </div>
+
+<!-- contact code  -->
+  <section class="contact-section">
+        <h2 class="section-heading">Get In Touch</h2>
+        
+        <div class="contact-container">
+            <!-- Contact Information -->
+            <div class="contact-info">
+                <h3 class="info-heading">Contact Information</h3>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-details">
+                        <h3>Email</h3>
+                        <p>
+                            <a href="mailto:rohitshahi540@gmail.com">rohitshahi540@gmail.com</a><br>
+                            <!-- <a href="mailto:work@portfolio.com">work@portfolio.com</a> -->
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-details">
+                        <h3>Phone</h3>
+                        <p>
+                            <a href="tel:+1234567890">91+ 000 123 456</a><br>
+                         
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <h3>Address</h3>
+                        <p>
+                           Dehradun, Uttarakhand
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- <div class="contact-item">
+                    <div class="contact-icon">🕒</div>
+                    <div class="contact-details">
+                        <h3>Working Hours</h3>
+                        <p>
+                            Monday - Friday: 9:00 AM - 6:00 PM<br>
+                            Saturday: 10:00 AM - 4:00 PM<br>
+                            Sunday: Closed
+                        </p>
+                    </div>
+                </div> -->
+                
+                <!-- <div class="social-links">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">📷</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">💼</a>
+                </div> -->
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h3 class="form-heading">Send Message</h3>
+                
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Full Name *</label>
+                        <input type="text" id="name" name="name" class="form-input" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address *</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email address" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="form-input" placeholder="Enter your phone number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject" class="form-label">Subject *</label>
+                        <input type="text" id="subject" name="subject" class="form-input" placeholder="What is this regarding?" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">Message *</label>
+                        <textarea id="message" name="message" class="form-textarea" placeholder="Tell me about your project or inquiry..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span id="btnText">Send Message</span>
+                        <span id="btnLoading" class="loading-spinner" style="display: none;"></span>
+                    </button>
+                    
+                    <div id="formMessage" class="form-message"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+   
+
+    
+    <!-- footer  -->
+     <footer class="cyberpunk-footer">
+        <div class="footer-content">
+            <h2 class="website-name">Rohit Shahi</h2>
+            
+            <p class="intro-paragraph">
+               “Data tells powerful stories. Let’s connect and discover the insights hidden in your data.”
+            </p>
+            
+           <div class="social-grid">
+    <div class="social-card facebook">
+        <a href="https://www.facebook.com" target="_blank">
+            <i class="fab fa-facebook-f social-icon"></i>
+            <div class="social-name">Facebook</div>
+            <div class="platform-specific">Social Network</div>
+        </a>
+    </div>
+
+    <div class="social-card twitter">
+        <a href="https://x.com" target="_blank">
+            <i class="fab fa-twitter social-icon"></i>
+            <div class="social-name">Twitter</div>
+            <div class="platform-specific">Microblogging</div>
+        </a>
+    </div>
+
+    <div class="social-card instagram">
+        <a href="https://www.instagram.com" target="_blank">
+            <i class="fab fa-instagram social-icon"></i>
+            <div class="social-name">Instagram</div>
+            <div class="platform-specific">Visual Content</div>
+        </a>
+    </div>
+
+    <div class="social-card linkedin">
+        <a href="https://www.linkedin.com" target="_blank">
+            <i class="fab fa-linkedin-in social-icon"></i>
+            <div class="social-name">LinkedIn</div>
+            <div class="platform-specific">Professional</div>
+        </a>
+    </div>
+
+    <div class="social-card indeed">
+        <a href="https://www.indeed.com" target="_blank">
+            <i class="fas fa-briefcase social-icon"></i>
+            <div class="social-name">Indeed</div>
+            <div class="platform-specific">Job Search</div>
+        </a>
+    </div>
+
+    <div class="social-card naukri">
+        <a href="https://www.naukri.com" target="_blank">
+            <i class="fas fa-building social-icon"></i>
+            <div class="social-name">Naukri</div>
+            <div class="platform-specific">Career Portal</div>
+        </a>
+    </div>
+</div>
+            
+            <p class="closing-paragraph">
+                2025 Rohit Shahi | Data Analytics.
+            </p>
+        </div>
+    </footer> 
+            </p>
+        </div>
+    </footer>
+    <!-- js link  -->
+    <script src="script.js"></script>
+    <!-- ------------  -->
+</body>
+
+</html>
